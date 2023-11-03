@@ -1,0 +1,408 @@
+% 介绍文本框底纹填充效果，原作者：https://jevon.org/wiki/Fancy_Quotation_Boxes_in_Latex
+\documentclass[
+	border={25mm 20mm 25mm 30mm},  % 左下右上的页边距
+%	border={5mm 20mm 5mm 30mm},  % 左下右上的页边距
+%	preview, 
+	varwidth,  % 页面最大宽度
+]{standalone}
+%\usepackage{newtxtext}
+\usepackage{geometry}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[strict]{changepage} % 提供一个 adjustwidth 环境
+\usepackage{framed} % 实现方框效果
+\usepackage{tcolorbox}%圆角框
+
+\tcbuselibrary{most}%定理
+\geometry{a4paper,centering,scale=0.8}
+\definecolor{tipscolor}{rgb}{0.77,0.72,0.65} % 莫兰迪棕色
+% ------------------******-------------------
+\newtcolorbox{tips}[2][]
+{enhanced,breakable,
+left=12pt,right=12pt,% 左右边距
+fonttitle=\sffamily,%无衬线
+%fonttitle=\bfseries, % 可以设置标题是否粗体
+coltitle=white, % 标题字体颜色
+colbacktitle=RoyalPurple!55!Aquamarine!100!, % 标题背景颜色
+attach boxed title to top left={yshifttext=-1mm},
+boxed title style={skin=enhancedfirst jigsaw,arc=1mm,bottom=0mm,boxrule=0mm},
+boxrule=1pt, % 边框线宽
+colback=SeaGreen!10!CornflowerBlue!10, % 文本框背景颜色
+colframe=RoyalPurple!55!Aquamarine!100!, % 框线颜色
+sharp corners=northwest,
+% drop fuzzy shadow, % 可以选择是否设置阴影效果
+title=\vspace{3mm}#2,
+arc=1mm,
+#1}
+
+
+\PassOptionsToPackage{no-math}{fontspec} % 使用中文不改变英文字体
+\usepackage[nocap,scheme=plain]{ctex}  % 使用中文
+
+\usepackage[
+	colorlinks,  % 有色链接
+	linkcolor=blue,  % 蓝色的目录链接
+]{hyperref}  % 支持目录跳转
+% 清除目录项的页号和分隔点
+\usepackage[titles]{tocloft}
+\usepackage{enumerate}
+\usepackage{amsmath} % 数学库
+\usepackage{arydshln} % 虚线框
+\usepackage{amsthm} % proof
+%%%数学用的宏包
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+\RequirePackage{bm}
+%%%%%%%%%%%%%%
+\cftpagenumbersoff{section}
+\cftpagenumbersoff{subsection}
+\cftpagenumbersoff{subsubsection}
+\renewcommand{\cftdot}{}
+
+\newenvironment{myindentpar}[1]%定义缩进
+	{\begin{list}{}%
+			{\setlength{\leftmargin}{#1}}%
+			\item[]%
+	}
+ {\end{list}}
+
+\newcommand\dd{\mathop{}\!\mathrm{d}}%微分自动空格正体
+
+
+\geometry{a4paper,centering,scale=0.8}
+% environment derived from framed.sty: see leftbar environment definition
+\definecolor{purpleframeshade}{RGB}{138,43,226} % 文本框颜色#8A2BE2
+\definecolor{purpleformalshade}{RGB}{235,236,255} % 文本框颜色
+\definecolor{greenframeshade}{RGB}{42,135,143} % 文本框颜色#2A878F
+\definecolor{greenformalshade}{RGB}{231,245,242} % 文本框颜色
+\definecolor{redframeshade}{RGB}{240,128,128} % 文本框颜色#F08080
+\definecolor{redformalshade}{RGB}{255,192,203} % 文本框颜色#FFC0CB
+\definecolor{brownframeshade}{RGB}{244,162,97} % 文本框颜色#F4A261
+\definecolor{brownformalshade}{RGB}{255,231,186} % 文本框颜色#FFE7BA
+% ------------------******-------------------
+% 注意行末需要把空格注释掉，不然画出来的方框会有空白竖线
+\newenvironment{purpleformal}{%
+\def\FrameCommand{%
+\hspace{1pt}%
+{\color{purpleframeshade}\vrule width 2pt}%
+{\color{purpleformalshade}\vrule width 4pt}%
+\colorbox{purpleformalshade}%
+}%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%
+\noindent\hspace{-4.55pt}% disable indenting first paragraph
+\begin{adjustwidth}{}{7pt}%
+\vspace{1pt}\vspace{1pt}%
+}
+{%
+\vspace{5pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+
+% 注意行末需要把空格注释掉，不然画出来的方框会有空白竖线
+\newenvironment{greenformal}{%
+\def\FrameCommand{%
+\hspace{1pt}%
+{\color{greenframeshade}\vrule width 2pt}%
+{\color{greenformalshade}\vrule width 4pt}%
+\colorbox{greenformalshade}%
+}%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%
+\noindent\hspace{-4.55pt}% disable indenting first paragraph
+\begin{adjustwidth}{}{7pt}%
+\vspace{1pt}\vspace{1pt}%
+}
+{%
+\vspace{5pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+
+% 注意行末需要把空格注释掉，不然画出来的方框会有空白竖线
+\newenvironment{redformal}{%
+\def\FrameCommand{%
+\hspace{1pt}%
+{\color{redframeshade}\vrule width 2pt}%
+{\color{redformalshade}\vrule width 4pt}%
+\colorbox{redformalshade}%
+}%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%
+\noindent\hspace{-4.55pt}% disable indenting first paragraph
+\begin{adjustwidth}{}{7pt}%
+\vspace{1pt}\vspace{1pt}%
+}
+{%
+\vspace{5pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+
+% 注意行末需要把空格注释掉，不然画出来的方框会有空白竖线
+\newenvironment{brownformal}{%
+\def\FrameCommand{%
+\hspace{1pt}%
+{\color{brownframeshade}\vrule width 2pt}%
+{\color{brownformalshade}\vrule width 4pt}%
+\colorbox{brownformalshade}%
+}%
+\MakeFramed{\advance\hsize-\width\FrameRestore}%
+\noindent\hspace{-4.55pt}% disable indenting first paragraph
+\begin{adjustwidth}{}{7pt}%
+\vspace{1pt}\vspace{1pt}%
+}
+{%
+\vspace{5pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+\title{Notes for Riemannian Geometry}
+
+\author{Fourier}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+
+\section{Differentiable Manifolds}
+\subsection{Differentiable Manifolds}
+\begin{tips}{Differentiable Manifolds}
+    A \textsl{differentiable manifold} of dimension \(n\) is a set \(M\) and a family of injective mappings \(\mathbf{x}_\alpha:U_\alpha\subset\mathbb{R}^n\to M\) of open sets \(U_\alpha\) of \(\mathbb{R}^n\) into \(M\) such that:
+    \begin{enumerate}[(1)]
+        \item \(\bigcup_\alpha{\mathbf{x}_\alpha(U_\alpha)}=M\).
+        \item for any pair \(\alpha,\beta\), with \(\mathbf{x}_\alpha(U_\alpha)\cap\mathbf{x}_\beta(U_\beta)=W=\varnothing\), the sets \(\mathbf{x}_\alpha^{-1}(W)\) and \(\mathbf{x}_\beta^{-1}(W)\) are open sets in \(\mathbb{R}^n\) and the mappings \(\mathbf{x}_\beta^{-1}\circ \mathbf{x}_\alpha\) are differentiable.
+        \item The family \(\{(U_\alpha,\mathbf{x}_\alpha)\}\) is maximal relative to the conditions (1) and (2).
+    \end{enumerate}
+\end{tips}
+
+\begin{greenformal}
+    The pair \((U_\alpha,\mathbf{x}_\alpha)\)(or the mapping \(\mathbf{x}_\alpha\)) with \(p\in\mathbf{x}_\alpha(U_\alpha)\) is called a \textsl{parametrization}参数化 (or \textsl{system of coordinates}坐标系) of \(M\) at \(p\); \(\mathbf{x}_\alpha(U_\alpha)\) is then called a \textsl{coordinate neighborhood} at \(p\). A family \(\{(U_\alpha,\mathbf{x}_\alpha)\}\) satisfying (1) and (2) is called a \textsl{differentiable structure} on \(M\).
+\end{greenformal}
+
+\begin{tips}
+    {Open Sets}
+    \(A\in M\) is an \textsl{open set} in \(M\) if and only if \(\mathbf{x}_\alpha^{-1}(A\cap\mathbf{x}_\alpha(U_\alpha))\) is an open set in \(\mathbb{R}^n\) for all \(\alpha\).
+\end{tips}
+
+\begin{tips}{Differentiable Mappings}
+    \(\varphi:M_1\to M_2\) is \textsl{differentiable at} \(p\in M_1\) if given a parametrization \(\mathbf{y}:V\subset\mathbb{R}^m\to M_2\) at \(\varphi(p)\) there exists a parametrization \(\mathbf{x}:U\subset\mathbb{R}^n\to M_1\) at \(p\) such that \(\varphi(\mathbf{x}(U))\subset\mathbf{y}(V)\) and the mapping \[\mathbf{y}^{-1}\circ\varphi\circ\mathbf{x}:U\subset\mathbb{R}^n\to\mathbb{R}^m\quad(\text{the expression of }\varphi\text{ in the parametrizations }\mathbf{x}\text{ and }\mathbf{y})\] is differentiable at \(\mathbf{x}^{-1}(p)\). \(\varphi\) is differentiable on an open set of \(M_1\) if it is differentiable at all of the points of this open set.
+\end{tips}
+
+\begin{tips}{Tangent Vector}
+    Let \(M\) be a differentiable manifold. A differentiable function \(\alpha:(-\varepsilon,\varepsilon)\to M\) is called a (differentiable) \textsl{curve} in \(M\). Suppose that \(\alpha(0)=p\in M\), and let \(\mathcal{D}\) be the set of functions on \(M\) that are differentiable at \(p\). The \textsl{tangent vector to the curve} \(\alpha\) at \(t=0\) is a function \(\alpha'(0):\mathcal{D}\to\mathbb{R}\) given by \[
+        \alpha'(0)f=\frac{\dd (f\circ\alpha)}{\dd t}\Big|_{t=0},\quad f\in\mathcal{D}.\]
+    类比\(f\)在\(\alpha'(0)\)方向的方向导数\(\bm{a}\cdot(\nabla f),\;\alpha'(0)=(\bm{a}\cdot\nabla)\)
+
+\end{tips}
+
+\begin{greenformal}
+    If we choose a parametrization \(\mathbf{x}:U\to M^n\) at \(p=\mathbf{x}(0)\), we can express the function \(f\) and the curve \(\alpha\) in this parametrization by \[
+        f\circ\mathbf{x}(q)=f(x_1,\dots,x_n),\quad q=(x_1,\dots,x_n)\subset U,\]and
+    \[\mathbf{x}^{-1}\circ\alpha(t)=\bigl(x_1(t),\dots,x_n(t)\bigr),\]
+    respectively. Therefore, restricting \(f\) to \(\alpha\), we obtain
+    \begin{align*}
+        \alpha'(0)f & =\frac{\dd (f\circ\alpha)}{\dd t}\Big|_{t=0}
+        =\frac{\dd \bigl((f\circ\mathbf{x})\circ(\mathbf{x}^{-1}\circ\alpha(t))\bigr)}{\dd t}\Big|_{t=0}
+        \\&=\frac{\dd}{\dd t}f\circ\mathbf{x}\bigl(x_1(t),\dots,x_n(t)\bigr)\Big|_{t=0}
+        =\frac{\dd}{\dd t}f\bigl(x_1(t),\dots,x_n(t)\bigr)\Big|_{t=0}
+        \\&=\sum_{i=1}^n{\frac{\partial f}{\partial x_i}\Big|_{t=0}x_i'(0)}=\biggl(\sum_{i=1}^n{x_i'(0)\Bigl(\frac{\partial}{\partial x_i}\Bigr)_0}\biggr)f
+    \end{align*}
+    In other words, the vector \(\alpha'(0)\) can be expressed in the parametrization \(\mathbf{x}\) by
+    \[\alpha'(0)=\sum_i{x_i'(0)\Bigl(\frac{\partial}{\partial x_i}\Bigr)_0}.\]
+\end{greenformal}
+
+\begin{tips}{Differential of a Differentiable mapping}
+    Let \(M_1^n\) and \(M_2^m\) be differentiable manifolds and let \(\varphi:M_1\to M_2\) be a differentiable mapping. For every \(p\in M_1\) and for each \(v\in T_p M_1\), choose a differentiable curve \(\alpha:(-\varepsilon,\varepsilon)\to M_1\) with \(\alpha(0)=p,\alpha'(0)=v\). Take \(\beta=\varphi\circ\alpha\). The mapping \(\dd\varphi_p:T_p M_1\to T_{\varphi(p)}M_2\) given by \(\dd\varphi_p(v)=\beta'(0)\) is a linear mapping that does not depend on the choice of \(\alpha\).
+    \\ \(\dd\varphi_p\) is called the \textsl{differential} of \(\varphi\) at \(p\).
+\end{tips}
+
+\begin{purpleformal}
+    \begin{proof}
+        Let \(\mathbf{x}:U\to M_1\) and \(\mathbf{y}:V\to M_2\) be parametrizations at \(p\) and \(\varphi(p)\), respectively. To express \(\varphi\) in these parametrizations, we can write
+        \[\mathbf{y}^{-1}\circ\varphi\circ\mathbf{x}(q)=\bigl(y_1(x_1,\dots,x_n),\dots,y_m(x_1,\dots,x_n)\bigr)\]\[
+            q=(x_1,\dots,x_n)\in U,\quad (y_1,\dots,y_m)\in V\]
+        On the other hand, expressing \(\alpha\) in the parametrization \(\mathbf{x}\), we obtain
+        \[\mathbf{x}^{-1}\circ\alpha(t)=\bigl(x_1(t),\dots,x_n(t)\bigr).\]
+        Therefore,
+        \[\mathbf{y}^{-1}\circ\beta(t)=\bigl(y_1(x_1(t),\dots,x_n(t)),\dots,y_m(x_1(t),\dots,x_n(t))\bigr)\]
+        It follows that the expression for \(\beta'(0)\) with respect to the basis \(\left\{\Bigl(\dfrac{\partial}{\partial y_i}\Bigr)_0\right\}\) of \(T_{\varphi(p)}M_2\), associated to the parametrization \(\mathbf{y}\), is given by
+        \[\beta'(0)=\Bigl(\sum_{i=1}^{n}{\frac{\partial y_1}{\partial x_i}x_i'(0)},\dots,\sum_{i=1}^{n}{\frac{\partial y_m}{\partial x_i}x_i'(0)}\Bigr).\]
+        The relation shows immediately that \(\beta'(0)\) does not depend on the choice of \(\alpha\). In addition, it can be written as
+        \[\beta'(0)=\dd \varphi_p(v)
+            =\begin{bmatrix}
+                \dfrac{\partial y_1}{\partial x_1} & \ldots & \dfrac{\partial y_1}{\partial x_n} \\
+                \vdots                             & \ddots & \vdots                             \\
+                \dfrac{\partial y_m}{\partial x_1} & \ldots & \dfrac{\partial y_m}{\partial x_n}
+            \end{bmatrix}
+            \begin{bmatrix}
+                \\[-6pt]
+                x_1'(0) \\[4pt]
+                \vdots  \\[6pt]
+                x_n'(0) \\[4pt]
+            \end{bmatrix}
+            ;\quad\dd\varphi_p=\begin{bmatrix}
+                \dfrac{\partial y_1}{\partial x_1} & \ldots & \dfrac{\partial y_1}{\partial x_n} \\
+                \vdots                             & \ddots & \vdots                             \\
+                \dfrac{\partial y_m}{\partial x_1} & \ldots & \dfrac{\partial y_m}{\partial x_n}
+            \end{bmatrix}\]
+        Therefore, \(\dd\varphi_p\) is a linear mapping of \(T_p M_1\) into \(T_{\varphi(p)} M_2\) whose matrix in the associated bases obtained from the parametrizations \(\mathbf{x}\) and \(\mathbf{y}\) is precisely the matrix \(\Bigl(\dfrac{\partial y_i}{\partial x_j}\Bigr)\).
+    \end{proof}
+\end{purpleformal}
+
+\begin{tips}{Diffeomorphism 微分同胚}
+    Let \(M_1\) and \(M_2\) be differentiable manifolds. A mapping \(\varphi:M_1\to M_2\) is a \textsl{diffeomorphism} if it is differentiable, bijective, and its inverse \(\varphi^{-1}\) is differentiable. \(\varphi\) is said to be a \textsl{local diffeomorphism} at \(p\in M\) if there exist neighborhoods \(U\) of \(p\) and \(V\) of \(\varphi(p)\) such that \(\varphi:U\to V\) is a diffeomorphism.
+\end{tips}
+
+\begin{tips}{Differentiable Mapping to Diffeomorphism}
+    Let \(\varphi:M_1^n\to M_2^n\) be a differentiable mapping and let \(p\in M_1\) be such that \(\dd\varphi_p:T_pM_1\to T_{\varphi(p)}M_2\) is an isomorphism同构. Then \(\varphi\) is a local diffeomorphism at \(p\).
+\end{tips}
+
+\subsection{Immersions and embeddings; examples}
+
+\begin{tips}{{Immersion 浸入, Embedding 嵌入 and Submanifold}}
+    Let \(M^m\) and \(N^n\) be differentiable manifolds. A differentiable mapping \(\varphi:M\to N\) is said to be an \textsl{immersion} if \(\dd \varphi_p:T_pM\to T_{\varphi(p)}N\) is injective 内射，单射 for all \(p\in M\).
+    \\If, in addition, \(\varphi\) is a homeomorphism 同胚 onto \(\varphi(M)\subset N\), where \(\varphi(M)\) has the subspace topology induced from \(N\), we say that \(\varphi\) is an \textsl{embedding}.
+    \\If \(M\subset N\) and the inclusion \(i:M\subset N\) is an embedding, we say that \(M\) is a \textsl{submanifold} of \(N\).
+\end{tips}
+
+\begin{greenformal}
+    It can be seen that if \(\varphi:M^m\to N^n\) is an immersion, then \(m\leqslant n\); the difference \(n-m\) is called the \textsl{codimension} 余维数 of the immersion \(\varphi\).
+\end{greenformal}
+
+\begin{tcolorbox}[title = \sffamily{Examples}, colback=Salmon!20, colframe=Salmon!90!Black]
+    The curve \(\alpha:\mathbb{R}\to\mathbb{R}^2\) given by \(\alpha(t)=(t^3,t^2)\) is a differentiable mapping but not an immersion because of the point \(t=0\).
+    \\\(\dd\alpha=(3t^2,2t),\dd\alpha(v)=(3t^2,2t)v\). When \(t=0\), \(\dd\alpha=0\), not an injective.
+\end{tcolorbox}
+
+\begin{tips}{Immersion to Embedding}
+    Let \(\varphi:M_1^n\to M_2^m,n\leqslant m\), be an immersion of the differentiable manifold \(M_1\) into the differentiable manifold \(M_2\). For every point \(p\in M_1\), there exists a neighborhood \(V\subset M_1\) of \(p\) such that the restriction \(\varphi|V\to M_2\) is an embedding.
+\end{tips}
+
+\begin{purpleformal}
+    \begin{proof}
+        This fact is a consequence of the inverse function theorem. Let \(\mathbf{x}_1:U_1\subset\mathbb{R}^n\to M_1\) and \(\mathbf{x}_2:U_2\subset\mathbb{R}^m\to M_2\) be a system of coordinates at \(p\) and at \(\varphi(p)\), respectively, and let us denote by \((x_1,\dots,x_n)\) the coordinates of \(\mathbb{R}^n\) and by \((y_1,\dots,y_m)\) the coordinates of \(\mathbb{R}^m\). In these coordinates, the expression for \(\varphi\), that is, the mapping \(\tilde{\varphi}=\mathbf{x}_2^{-1}\circ\varphi\circ\mathbf{x}_1\), can be written
+        \[\tilde{\varphi}=\bigl(y_1(x_1,\dots,x_n),\dots,y_m(x_1,\dots,x_n)\bigr).\]
+        Let \(q=\mathbf{x}_1^{-1}(p)\). Since \(\varphi\) is an immersion, we can suppose, renumbering the coordinates for both \(\mathbb{R}^n\) and \(\mathbb{R}^m\), if necessary, that
+        \[J\bigl(\tilde{\varphi}(q)\bigr)=\frac{\partial(y_1,\dots,y_n)}{\partial(x_1,\dots,x_n)}(q)
+            =\begin{vmatrix}
+                \dfrac{\partial y_1}{\partial x_1} & \ldots & \dfrac{\partial y_1}{\partial x_n} \\
+                \vdots                             & \ddots & \vdots                             \\
+                \dfrac{\partial y_n}{\partial x_1} & \ldots & \dfrac{\partial y_n}{\partial x_n}
+            \end{vmatrix}
+            \ne0.\]
+        To apply the inverse function theorem, we introduce the mapping \(\phi=U_1\times\mathbb{R}^{m-n}\to\mathbb{R}^m\) given by
+        \begin{align*}
+             & \phi(x_1,\dots,x_n,t_1,\dots,t_{m-n})
+            \\=\bigl(&y_1(x_1,\dots,x_n),\dots,y_n(x_1,\dots,x_n),y_{n+1}(x_1,\dots,x_n)+t_1,\dots,y_{m}(x_1,\dots,x_n)+t_{m-n}\bigr)
+        \end{align*}
+        where \((t_1,\dots,t_{m-n})\in\mathbb{R}^{m-n}\). It is easy to verify that \(\phi\) restricted to \(U_1\) coincides with \(\tilde{\varphi}\) and that
+        \begin{align*}
+            \det \bigl(\dd\phi(q)\bigr)
+             & =\left|\begin{array}{ccc:ccc}
+                \dfrac{\partial y_1}{\partial x_1} & \ldots & \dfrac{\partial y_1}{\partial x_n} & 0      & \ldots & 0      \\
+                \vdots                             & \ddots & \vdots                             & \vdots & \ddots & \vdots \\
+                \dfrac{\partial y_n}{\partial x_1} & \ldots & \dfrac{\partial y_n}{\partial x_n} & 0      & \ldots & 0      \\[8pt]
+                \hdashline                         &        &                                    &        &        &        \\[-8pt]
+                0                                  & \ldots & 0                                  & 1      & \ldots & 0      \\
+                \vdots                             & \ddots & \vdots                             & \vdots & \ddots & \vdots \\
+                0                                  & \ldots & 0                                  & 0      & \ldots & 1
+            \end{array}\right| \\
+             & =\left|\begin{array}{c:c}
+                \dfrac{\partial(y_1,\ldots,y_n)}{\partial(x_1,\ldots,x_n)}(q)\hspace{-2.5pt} & \hspace{-1pt} \mathbf{O}_{n\times(m-n)}\hspace{-2.2pt} \\[8pt]
+                \hdashline                                                                                                                            \\[-10pt]
+                \mathbf{O}_{(m-n)\times n}                                                   & \mathbf{E}_{m-n}
+            \end{array}\right|
+            =\frac{\partial(y_1,\dots,y_n)}{\partial(x_1,\dots,x_n)}(q)=J\bigl(\tilde{\varphi}(q)\bigr)
+            \ne0.
+        \end{align*}
+        It follows from the inverse function theorem, that there exist neighborhoods \(W_1\subset U_1\times\mathbb{R}^{m-n}\) of \(q\) and \(W_2\subset\mathbb{R}^m\) of \(\phi(q)\) such that the restriction \(\phi|W_1\) is a diffeomorphism onto \(W_2\). Let \(\tilde{V}=W_1\cap U_1\). Since \(\phi|\tilde{V}=\tilde{\varphi}|\tilde{V}\) and \(\mathbf{x}_i\) is a diffeomorphism, for \(i=1,2\), we conclude that the restriction to \(V=\mathbf{x}_1(\tilde{V})\) of the mapping \(\phi=\mathbf{x}_2\circ\tilde{\varphi}\circ\mathbf{x}_1^{-1}:V\to \varphi(V)\subset M_2\) is a diffeomorphism, hence an embedding.
+    \end{proof}
+\end{purpleformal}
+
+\subsection{Other examples of manifolds. Orientation}
+
+\begin{tips}{the Tangent Bundle 切丛}
+    Let \(M^n\) be a differentiable manifold and let \(TM=\bigl\{(p,v);p\in M,v\in T_pM\bigr\}\). We are going to provide the set \(TM\) with a differentiable structure (of dimension \(2n\)); with such a structure \(TM\) will be called the \textsl{tangent bundle} of \(M\). This is the natural space to work with when treating questions that involve positions and velocities, as in the case of mechenics.
+\end{tips}
+
+\begin{purpleformal}
+    \begin{proof}
+        Let \(\bigl\{(U_\alpha,\mathbf{x}_\alpha)\bigr\}\) be a maximal differentiable structure on \(M\). Denote by \((x_1^\alpha,\dots,x_n^\alpha)\) the coordinates of \(U_\alpha\) and by \(\Bigl\{\dfrac{\partial}{\partial x_1^\alpha},\dots,\dfrac{\partial}{\partial x_n^\alpha}\Bigr\}\) the associated bases to the tangent spaces of \(\mathbf{x}_\alpha(U_\alpha)\). For every \(\alpha\), define
+        \[\mathbf{y}_\alpha:U_\alpha\times\mathbb{R}^n\to TM,\]
+        by
+        \[\mathbf{y}_\alpha(x_1^\alpha,\dots,x_n^\alpha,u_1,\dots,u_n)=\Bigl(\mathbf{x}_\alpha(x_1^\alpha,\dots,x_n^\alpha),\sum_{i=1}^{n}{u_i\frac{\partial}{\partial x_i^\alpha}}\Bigr),\quad (u_1,\dots,u_n)\in\mathbb{R}^n.\]
+
+        We are going to show that \(\bigl\{(U_\alpha\times\mathbb{R}^n,\mathbf{y}_\alpha)\bigr\}\) is a differentiable structure on \(TM\). Since \(\bigcup_\alpha\mathbf{x}_\alpha(U_\alpha)=M\) and \((\dd\mathbf{x}_\alpha)_q(\mathbb{R}^n)=T_{\mathbf{x}_\alpha(q)}M\), \(q\in U_\alpha\), we have that
+        \[\bigcup_\alpha\mathbf{y}_\alpha(U_\alpha\times\mathbb{R}^n)=TM,\]
+        which verifies condition (1). Now let
+        \[(p,v)\in\mathbf{y}_\alpha(U_\alpha\times\mathbb{R}^n)\cap\mathbf{y}_\beta(U_\beta\times\mathbb{R}^n).\]
+        Then
+        \[(p,v)=\bigl(\mathbf{x}_\alpha(q_\alpha),\dd\mathbf{x}_\alpha(v_\alpha)\bigr)=\bigl(\mathbf{x}_\beta(q_\beta),\dd\mathbf{x}_\beta(v_\beta)\bigr),\]
+        where \(q_\alpha\in U_\alpha,\;q_\beta\in U_\beta,\; v_\alpha,v_\beta\in\mathbb{R}^n\). Therefore,
+        \[\mathbf{y}_\beta^{-1}\circ\mathbf{y}_\alpha(q_\alpha,v_\alpha)=\mathbf{y}_\beta^{-1}\bigl(\mathbf{x}_\alpha(q_\alpha),\dd\mathbf{x}_\alpha(v_\alpha)\bigr)=\bigl((\mathbf{x}_\beta^{-1}\circ\mathbf{x}_\alpha)(q_\alpha),\dd(\mathbf{x}_\beta^{-1}\circ\mathbf{x}_\alpha)(v_\alpha)\bigr).\]
+        Since \(\mathbf{x}_\beta^{-1}\circ\mathbf{x}_\alpha\) is differentiable, \(\dd(\mathbf{x}_\beta^{-1}\circ\mathbf{x}_\alpha)\) is as well. It follows that \(\mathbf{y}_\beta\circ\mathbf{y}_\alpha\) is differentiable, which follows condition (2) and completes the example.
+    \end{proof}
+\end{purpleformal}
+
+\begin{tips}{Regular Surfaces in \(\mathbb{R}^n\)}
+    The natural generalization of the notion of a regular surface in \(\mathbb{R}^3\) is the idea of a surface of dimension \(k\) in \(\mathbb{R}^n\), \(k\leqslant n\). A subset \(M^k\subset\mathbb{R}^n\) is a \textsl{regular surface of dimension} \(k\) if for every \(p\in M\) there exists a neighborhood \(V\) of \(p\) in \(\mathbb{R}^n\) and a mapping \(\mathbf{x}:U\subset\mathbb{R}^k\to M\cap V\) of an open set \(U\subset\mathbb{R}^k\) onto \(M\cap V\) such that:
+    \begin{enumerate}[(1)]
+        \item \(\mathbf{x}\) is a differentiable homeomorphism.
+        \item \(\dd\mathbf{x}_q:\mathbb{R}^k\to\mathbb{R}^n\) is injective for all \(q\in U\).
+    \end{enumerate}
+\end{tips}
+
+\begin{tips}{Inverse Image of a Regular Value}
+    Let \(F:U\subset\mathbb{R}^n\to\mathbb{R}^m\) be a differentiable mapping of an open set \(U\) of \(\mathbb{R}^n\). A point \(p\in U\) is defined to be a \textsl{critical point} of \(F\) if the differential \(\dd F_p:\mathbb{R}^n\to\mathbb{R}^m\) is not surjective 满射. The image \(F(p)\) of a critical point is called a \textsl{critical value} of \(F\). A point \(a\in\mathbb{R}^m\) that is not a critical value is said to be a \textsl{regular value} of \(F\). Note that any point \(a\notin F(U)\) is trivially a regular value of \(F\) and that if there exists a regular value of \(F\) in \(\mathbb{R}^m\), then \(n\geqslant m\).
+
+    Now let \(a\in F(U)\) be a regular value of \(F\). We are going to show that the \textsl{inverse image} \(F^{-1}(a)\subset\mathbb{R}^n\) is a regular surface of dimension \(n-m=k\). \(F^{-1}(a)\) is then a submanifold of \(\mathbb{R}^n\).
+\end{tips}
+
+\begin{tips}{Orientation}
+    Let \(M\) be a differentiable manifold. We say that \(M\) is \textsl{orientable} if \(M\) admits a differentiable structure \(\bigl\{(U_\alpha,\mathbf{x}_\alpha)\bigr\}\) such that:
+    \begin{itemize}
+        \item for every pair \(\alpha,\beta\), with \(\mathbf{x}_\alpha(U_\alpha)\cap\mathbf{x}_\beta(U_\beta)=W\ne\varnothing\), the differential of the change of coordinates \(\mathbf{x}_\beta^{-1}\circ\mathbf{x}_\alpha\) has positive determinant.
+    \end{itemize}
+    In the opposite case, we say that \(M\) is \textsl{non-orientable}. If \(M\) is orientable, a choice of a differentiable structure satisfying \((\cdot)\) is called an \textsl{orientation} of \(M\). \(M\) is said to be \textsl{oriented}. Two differentiable structures that satisfy \((\cdot)\) \textsl{determine the same orientation} if their union again satisfies \((\cdot)\).
+
+    If \(M\) is orientable and connected, there exist exactly two distinct orientations on \(M\).
+
+    Now let \(M_1\) and \(M_2\) be differentiable manifolds and let \(\varphi:M_1\to M_2\) be a diffeomorphism. It is easy to verify that \(M_1\) is orientable if and only if \(M_2\) is orientable. If, additionally, \(M_1\) and \(M_2\) are connected and oriented, \(\varphi\) induces an orientation on \(M_2\) which may or may not coincide with the initial orientation of \(M_2\). In the first case, we say that \(\varphi\) \textsl{perverses the orientation} and in the second case, that \(\varphi\) \textsl{reverses the orientation}.
+\end{tips}
+
+\begin{tcolorbox}[title = \sffamily{Theorem}, colback=Emerald!10, colframe=cyan!40!black]
+    If \(M\) can be covered by two coordinate neighborhoods \(V_1\) and \(V_2\) in such a way that the intersection \(V_1\cap V_2\) is connected, then \(M\) is orientable. Indeed, since the determinant of the differential of the coordinate change \(\ne\) 0, it does not change sign in \(V_1\cap V_2\); if it is negative at a single point, it suffices to change the sign of one of the coordinates to make it positive at that point, hence on \(V_1\cap V_2\).
+\end{tcolorbox}
+
+\begin{tcolorbox}[title = \sffamily{Examples}, colback=Salmon!20, colframe=Salmon!90!Black]
+    待补充
+\end{tcolorbox}
+
+\subsection{Vector Fields; brackets. Topology of Manifolds}
+
+\begin{tips}{Vector Fields}
+    A \textsl{vector field} \(X\) on a differentiable manifold \(M\) is a correspondence that associates to each point \(p\in M\) a vector \(X(p)\in T_p(M)\). In terms of mappings, \(X\) is a mapping of \(M\) into the tangent bundle \(TM\). The field is \textsl{differentiable} if the mapping \(X:M\to TM\) is differentiable.
+\end{tips}
+
+\begin{greenformal}
+    Considering a parametrization \(\mathbf{x}:U\subset\mathbb{R}^n\to M\) we can write
+    \begin{align}
+        X(p)=\sum_{i=1}^{n}{a_i(p)\frac{\partial}{\partial x_i}},
+    \end{align}
+    where each \(a_i:U\to\mathbb{R}\) is a function on \(U\) and \(\Bigl\{\dfrac{\partial}{\partial x_i}\Bigr\}\) is the basis associated to \(\mathbf{x},\; i=1,\dots,n\). It is clear that \(X\) is differentiable if and only if the functions \(a_i\) are differentiable for some (and, therefore, for any) parametrization.
+
+    Occasionally, it is convenient to use the idea suggested above and think of a vector field as a mapping \(X:\mathcal{D}\to\mathcal{F}\) from the set \(\mathcal{D}\) of differentiable functions on \(M\) to the set \(\mathcal{F}\) of functions on \(M\), defined in the following way
+    \begin{align}
+        (Xf)(p)=\sum_i{a_i(p)\frac{\partial f}{\partial x_i}(p)},
+    \end{align} 
+    where \(f\) denotes, by abuse of notation, the expression of \(f\) in the parametrization \(\mathbf{x}\). Indeed, this idea of a vector as a directional derivative was precisely what was used to define the notion of tangent vector. It is easy to check that the function \(Xf\) does not depend on the choice of parametrization \(\mathbf{x}\). In this context, it is immediate that \(X\) is differentiable if and only if \(X:\mathcal{D}\to\mathcal{D}\), that is, \(Xf\in \mathcal{D}\) for all \(f\in\mathcal{D}\).
+
+    Observe that if \(\varphi:M\to M\) is a diffeomorphism, \(v\in T_pM\) and \(f\) is a differentiable function in a neighborhood of \(\varphi(p)\), we have
+    \[\bigl(\dd\varphi(v)f\bigr)\varphi(p)=v(f\circ\varphi)(p)\]
+    Indeed, let \(\alpha:(-\varepsilon,\varepsilon)\to M\) be a differentiable curve with \(\alpha'(0)=v,\alpha(0)=p\). Then
+    \[\bigl(\dd\varphi(v)f\bigr)\varphi(p)=\frac{\dd}{\dd t}(f\circ\varphi\circ\alpha)\Big|_{t=0}=v(f\circ\varphi)(p).\]
+
+\end{greenformal}
+
+\section{Affine Connections 仿射联络 ; Riemannian Connections}
+
+
+\end{document}
